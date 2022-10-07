@@ -1,2 +1,2 @@
 # HelloYouFinalOp
-Final exercise for the Hello You project
+Currently being worked on

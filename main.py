@@ -11,6 +11,9 @@ If not, see <https://www.gnu.org/licenses/>.
 '''
 
 from random import shuffle
+from colorama import Fore, init
+
+init(autoreset=True)
 
 pieces = {
     0: {
@@ -20,6 +23,7 @@ wolken, waardoor het enige licht in je slaapkamer afkomstig is van de kandelaar 
 hoofdeinde. Na een tijdje leg je het boek naast je neer, blaas je de kaars uit en sluit je je
 ogen, je vaag bewust zijnde van de regen die buiten op je raam klettert. Langzaam zak je
 weg en val je in een diepe slaap...
+
 Plots schrik je op van een heftige donderstoot. Je weet niet hoe laat het is, maar je ziet nog
 steeds geen steek, de regen is nog niet opgehouden - integendeel, het is alleen maar harder
 gaan regenen - en het is zelfs begonnen te onweren. Wanneer een tweede bliksemschicht je
@@ -126,7 +130,7 @@ misschien opgevallen en had je wellicht ook de flikkering van pas geslepen metaa
 struikgewas opgemerkt. Wat je daarentegen wel goed merkt is de harde 'twang' van een
 afgaande boogpees en de donkere schacht die het volgende ogenblik uit je borstkas steekt.''',
 
-        'end': 'Doodlopend einde.'
+        'end': f'{Fore.LIGHTBLACK_EX}Doodlopend einde{Fore.RESET}.'
     },
 
     6: {
@@ -162,7 +166,7 @@ valt. Terwijl je de volgende ochtend naar de bakker loopt om brood te halen hoor
 mensen praten over een vreemde dode in het Takkenbos. Tevreden dat jij er niet bij
 betrokken bent geraakt sluit je dit verhaal weer af.''',
 
-        'end': 'Normaal einde!'
+        'end': f'{Fore.GREEN}Normaal einde{Fore.RESET}!'
     },
 
     8: {
@@ -257,7 +261,7 @@ bos uitsteekt en dat je vanaf hier je huisje kan zien, dat in lichterlaaie staat
 voel je opeens een hand zich om je been sluiten en word je omver getrokken door een Urid ie zich bewusteloos veinsde. Na een korte worsteling zweven jullie beide een paar meter
 naast de stapel, om vervolgens met een noodvaart naar beneden te storten.''',
 
-        'end': 'Doodlopend einde'
+        'end': f'{Fore.LIGHTBLACK_EX}Doodlopend einde{Fore.RESET}'
     },
 
     12: {
@@ -353,7 +357,7 @@ achterover, hoofd voorop recht in de zak met dwergmarmotten duikelt die achter j
 hangt. In de daarop volgende verblindende en oorverdovende explosie word je verspreid
 over het hele bos, daarmee een einde brengend aan je verhaal.''',
 
-        'end': 'Doodlopend einde'
+        'end': f'{Fore.LIGHTBLACK_EX}Doodlopend einde{Fore.RESET}'
     },
 
     16: {
@@ -371,7 +375,7 @@ immens veranderde stad en de groepjes Uri's die de straten patrouilleren hef je 
 nogmaals naar de hemel, en met een kwaadaardige grijns op je gezicht breng je Ulthas een
 laatste groet.''',
 
-        'end': 'Kwaad einde!'
+        'end': f'{Fore.RED}Kwaad einde!{Fore.RESET}'
     },
 
     17: {
@@ -390,7 +394,7 @@ brengen. Je laatste gedachten gaan uit naar je warme bed, terwijl je je afvraagt
 toch niet bent blijven liggen in plaats van bedolven te worden onder een regen van roze
 gewaden en zwarte hoeden.''',
 
-        'end': 'Doodlopend einde'
+        'end': f'{Fore.LIGHTBLACK_EX}Doodlopend einde{Fore.RESET}'
     },
 
     18: {
@@ -451,7 +455,7 @@ beiden, onder het genot van een glas koel bier op het balkon van de zonsondergan
 genieten, denk je terug aan de toevallige gebeurtenissen die tot dit alles leidden en ben je
 blij dat je de goede keuzes hebt gemaakt.''',
 
-        'end': 'Goed einde!'
+        'end': f'{Fore.GREEN}Goed einde!{Fore.RESET}'
     },
 
     21: {
@@ -461,7 +465,7 @@ grote, houten grijns tot leven en staar je recht in een gapend gat vol splinteri
 probeert nog af te remmen en om te keren, maar het baat allemaal niet, en even later
 sluiten de hardeiken kaken zich voorgoed achter je.''',
 
-        'end': 'Doodlopend einde'
+        'end': f'{Fore.LIGHTBLACK_EX}Doodlopend einde{Fore.RESET}'
     }
 }
 
@@ -508,23 +512,26 @@ def start() -> None:
             continue
 
         answers = piece['opt']
-        shuffle(answers)
+        shuffle(answers) # shuffles the answers, provides some randomization
 
         counter = 0
         print('\n')
         for opt_str, _ in answers:
             counter += 1
-            print(f'{counter} - {opt_str}')
+            print(f'{Fore.LIGHTRED_EX}{counter} {Fore.WHITE}-{Fore.LIGHTCYAN_EX} {opt_str}')
         
-        resp = input('\n> ')
-        counter = 0
-        for opt_str, goto in answers:
-            counter += 1
+        try:
+            resp = input(f'\n{Fore.LIGHTBLUE_EX}>>>{Fore.WHITE} ')
+            counter = 0
+            for opt_str, goto in answers:
+                counter += 1
 
-            if str(counter) == resp:
+                if str(counter) == resp:
 
-                piece = pieces.get(goto)
-                break
+                    piece = pieces.get(goto)
+                    break
+        except KeyboardInterrupt:
+            exit()
 
 if __name__ == '__main__':
     start()

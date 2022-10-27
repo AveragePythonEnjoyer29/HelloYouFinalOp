@@ -514,22 +514,22 @@ def start() -> None:
         answers = piece['opt']
         shuffle(answers) # shuffles the answers, provides some randomization
 
-        counter = 0
         print('\n')
-        for opt_str, _ in answers:
-            counter += 1
-            print(f'{Fore.LIGHTRED_EX}{counter} {Fore.WHITE}-{Fore.LIGHTCYAN_EX} {opt_str}')
+        for i, opt_ in enumerate(answers):
+            opt_str, _ = opt_
+
+            print(f'{Fore.LIGHTRED_EX}{i} {Fore.WHITE}-{Fore.LIGHTCYAN_EX} {opt_str}')
         
         try:
             resp = input(f'\n{Fore.LIGHTBLUE_EX}>>>{Fore.WHITE} ')
-            counter = 0
-            for opt_str, goto in answers:
-                counter += 1
+            for i, opt_ in enumerate(answers):
+                opt_str, goto = opt_
 
-                if str(counter) == resp:
+                if str(i) == resp:
 
                     piece = pieces.get(goto)
                     break
+
         except KeyboardInterrupt:
             exit()
 
